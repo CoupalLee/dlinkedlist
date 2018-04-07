@@ -6,6 +6,8 @@
  */
 
 #include"Node.cpp"
+#include <iostream>
+#include <ostream>
 template <class TYPE>
 class DLinkedList {
 
@@ -22,11 +24,18 @@ class DLinkedList {
 	}
 
 	Node<TYPE>* insert(const TYPE& type, Node<TYPE>* current ){//inserts a node
-		Node<TYPE>* temp;
-		temp= new Node<TYPE>(type, current -> next, current);
-		return temp;
-		current-> next-> previous;
-		current -> next = temp;
+		 Node<TYPE>* newNode = new Node<TYPE>(type);
+		    Node<TYPE>* temp;
+		    if (isFirst() == NULL)
+		        head = newNode;
+		    else {
+		        while(current->next != NULL){
+		            current = current->next;
+		        }
+		        current->next = newNode;
+		        newNode->previous = current;
+		    }
+		    return newNode;
 	}
 
 	Node<TYPE>* isFirst(){//returns a reference to header node
@@ -51,8 +60,14 @@ class DLinkedList {
 
 	}
 
-	void display (ostream & ){//writes to a file the elements of the linked list
 
+	void display (std::ostream& output ){//writes to a file the elements of the linked list
+		output << "\nDisplaying: ";
+		Node<TYPE>* temp = head;
+		while (temp!=0){
+			output << temp->value << " ";
+			temp=temp->next;
+		}
 	}
 
 	Node<TYPE>* Min(Node<TYPE>* H){//finds the min value in a list headed by H
